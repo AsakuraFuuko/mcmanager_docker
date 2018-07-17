@@ -1,6 +1,6 @@
 FROM openjdk:latest
 
-EXPOSE 25565 25575 8123 23333
+EXPOSE 25565 25575 8123 23333 20010 20011 10021
 
 RUN apt-get install -y curl \
   && curl -sL https://deb.nodesource.com/setup_8.x | bash - \
