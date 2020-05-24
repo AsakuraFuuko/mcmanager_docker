@@ -2,6 +2,7 @@
 
 if [ ! -f /home/MCSManager/property.js ]; then
     cd /home 
+    rm -rf MCSManager
     git clone https://github.com/Suwings/MCSManager.git
     cd MCSManager 
     npm install --production
