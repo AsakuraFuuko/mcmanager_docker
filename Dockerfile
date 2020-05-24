@@ -1,5 +1,7 @@
 FROM lsiobase/ubuntu:bionic
 
+USER abc
+
 # Replace shell with bash so we can source files
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 
@@ -27,3 +29,4 @@ VOLUME "/app/MCSManager"
 EXPOSE 25565 25575 8123 23333 20010 20011 10021
 
 COPY docker-entrypoint.sh /etc/service.d/mcmanager/run
+RUN chmod +x /etc/service.d/mcmanager/run
