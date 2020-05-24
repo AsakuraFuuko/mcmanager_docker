@@ -9,7 +9,7 @@ if [ ! -f /home/MCSManager/property.js ]; then
     npm install --production
     node app.js
 else
-    chown $PUID:$PGID -r MCSManager
+    chown $PUID:$PGID -r /home/MCSManager
     cd /home/MCSManager
     git pull --rebase
     npm install --production
