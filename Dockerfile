@@ -7,7 +7,7 @@ RUN echo "Asia/Shanghai" | tee /etc/timezone
 
 # make sure apt is up to date
 RUN apt-get update --fix-missing
-RUN apt-get install -y curl
+RUN apt-get install -y curl git
 RUN apt-get install -y build-essential libssl-dev openjdk-8-jre-headless
 
 ENV NVM_DIR /usr/local/nvm
@@ -26,8 +26,7 @@ WORKDIR /home/MCSManager
 
 VOLUME [/home/MCSManager]
 
-RUN cd /home && git clone https://github.com/Suwings/MCSManager.git && cd MCSManager && npm install --production
-
 EXPOSE 25565 25575 8123 23333 20010 20011 10021
 
-CMD ["node", "app.js"]
+COPY docker-entrypoint.sh /
+ENTRYPOINT ["/docker-entrypoint.sh"]
