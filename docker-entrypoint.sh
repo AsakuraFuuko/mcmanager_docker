@@ -1,6 +1,6 @@
 #!/usr/bin/with-contenv bash
 
-if [ ! -f /app/MCSManager/property.js ]; then
+if [ ! -f /app/MCSManager/package-lock.json ]; then
     cd /app 
     rm -rf MCSManager
     git clone https://github.com/Suwings/MCSManager.git
