@@ -6,11 +6,13 @@ if [ ! -f /app/MCSManager/property.js ]; then
     git clone https://github.com/Suwings/MCSManager.git
     cd MCSManager 
     s6-setuidgid abc \
-    npm install --production && node app.js
+    npm install --production
+    s6-setuidgid abc node app.js
 else
     chown -R abc:abc /app/MCSManager
     cd /app/MCSManager
     git pull --rebase
     s6-setuidgid abc \
-    npm install --production && node app.js
+    npm install --production
+    s6-setuidgid abc node app.js
 fi
