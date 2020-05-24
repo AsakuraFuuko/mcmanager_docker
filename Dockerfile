@@ -26,5 +26,5 @@ VOLUME "/app/MCSManager"
 
 EXPOSE 25565 25575 8123 23333 20010 20011 10021
 
-COPY docker-entrypoint.sh /etc/service.d/mcmanager/run
-RUN chmod +x /etc/service.d/mcmanager/run
+COPY docker-entrypoint.sh /etc/services.d/mcmanager/run
+RUN chmod +x /etc/services.d/mcmanager/run
