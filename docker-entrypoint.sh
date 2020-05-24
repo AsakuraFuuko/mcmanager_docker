@@ -1,17 +1,16 @@
-#!/bin/bash
+#!/usr/bin/with-contenv bash
 
-if [ ! -f /home/MCSManager/property.js ]; then
-    cd /home 
+if [ ! -f /app/MCSManager/property.js ]; then
+    cd /app 
     rm -rf MCSManager
     git clone https://github.com/Suwings/MCSManager.git
     cd MCSManager 
-    npm install --production
-    chown -R $PUID:$PGID /home/MCSManager
-    node app.js
+    s6-setuidgid abc \
+    npm install --production && node app.js
 else
-    cd /home/MCSManager
+    chown -R abc:abc /app/MCSManager
+    cd /app/MCSManager
     git pull --rebase
-    npm install --production
-    chown -R $PUID:$PGID /home/MCSManager
-    node app.js
+    s6-setuidgid abc \
+    npm install --production && node app.js
 fi

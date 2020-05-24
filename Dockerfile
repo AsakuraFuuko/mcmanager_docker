@@ -1,4 +1,4 @@
-FROM lsiobase/ubuntu
+FROM lsiobase/ubuntu:bionic
 
 # Replace shell with bash so we can source files
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
@@ -7,7 +7,7 @@ RUN echo "Asia/Shanghai" | tee /etc/timezone
 
 # make sure apt is up to date
 RUN apt-get update --fix-missing
-RUN apt-get install -y curl git sudo
+RUN apt-get install -y curl git
 RUN apt-get install -y build-essential libssl-dev openjdk-8-jre-headless
 
 ENV NVM_DIR /usr/local/nvm
@@ -22,12 +22,8 @@ RUN curl https://raw.githubusercontent.com/creationix/nvm/v0.30.1/install.sh | b
 ENV NODE_PATH $NVM_DIR/v$NODE_VERSION/lib/node_modules
 ENV PATH      $NVM_DIR/versions/node/v$NODE_VERSION/bin:$PATH
 
-WORKDIR /home/MCSManager
-
-VOLUME "/home/MCSManager"
+VOLUME "/app/MCSManager"
 
 EXPOSE 25565 25575 8123 23333 20010 20011 10021
 
-COPY docker-entrypoint.sh /home
-RUN chmod +x /home/docker-entrypoint.sh
-ENTRYPOINT ["/home/docker-entrypoint.sh"]
+COPY docker-entrypoint.sh /etc/service.d/mcmanager/run
