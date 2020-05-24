@@ -29,4 +29,5 @@ VOLUME [/home/MCSManager]
 EXPOSE 25565 25575 8123 23333 20010 20011 10021
 
 COPY docker-entrypoint.sh /
+RUN chmod +x /docker-entrypoint.sh
 ENTRYPOINT ["/docker-entrypoint.sh"]
