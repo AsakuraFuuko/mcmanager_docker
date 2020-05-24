@@ -1,5 +1,8 @@
 FROM lsiobase/ubuntu
 
+# Replace shell with bash so we can source files
+RUN rm /bin/sh && ln -s /bin/bash /bin/sh
+
 RUN echo "Asia/Shanghai" | tee /etc/timezone
 
 # make sure apt is up to date
