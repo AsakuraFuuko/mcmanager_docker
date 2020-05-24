@@ -1,25 +1,30 @@
 FROM lsiobase/ubuntu
 
-EXPOSE 25565 25575 8123 23333 20010 20011 10021
-
 RUN echo "Asia/Shanghai" | tee /etc/timezone
 
-RUN apt-get update -q && apt-get install -qy \
-    wget \
-    openjdk-8-jre-headless \
-    && rm -rf /var/lib/apt/lists/*
+# make sure apt is up to date
+RUN apt-get update --fix-missing
+RUN apt-get install -y curl
+RUN apt-get install -y build-essential libssl-dev openjdk-8-jre-headless
 
 ENV NVM_DIR /usr/local/nvm
 ENV NODE_VERSION 12.16.1
-RUN wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.2/install.sh | bash \
-    && . $NVM_DIR/nvm.sh \
+
+RUN curl https://raw.githubusercontent.com/creationix/nvm/v0.30.1/install.sh | bash \
+    && source $NVM_DIR/nvm.sh \
     && nvm install $NODE_VERSION \
     && nvm alias default $NODE_VERSION \
     && nvm use default
+
+ENV NODE_PATH $NVM_DIR/v$NODE_VERSION/lib/node_modules
+ENV PATH      $NVM_DIR/versions/node/v$NODE_VERSION/bin:$PATH
+
+WORKDIR /home/MCSManager
 
 VOLUME [/home/MCSManager]
 
 RUN cd /home && git clone https://github.com/Suwings/MCSManager.git && cd MCSManager && npm install --production
 
-WORKDIR /home/MCSManager
-CMD ["/usr/bin/node", "app.js"]
+EXPOSE 25565 25575 8123 23333 20010 20011 10021
+
+CMD ["node", "app.js"]
