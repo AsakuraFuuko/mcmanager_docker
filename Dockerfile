@@ -8,9 +8,14 @@ RUN apt-get update -q && apt-get install -qy \
     wget \
     openjdk-8-jre-headless \
     && rm -rf /var/lib/apt/lists/*
-RUN wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.2/install.sh | bash
-RUN source /root/.bashrc
-RUN nvm install 12.16.1 && nvm use 12.16.1
+
+ENV NVM_DIR /usr/local/nvm
+ENV NODE_VERSION 12.16.1
+RUN wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.2/install.sh | bash \
+    && . $NVM_DIR/nvm.sh \
+    && nvm install $NODE_VERSION \
+    && nvm alias default $NODE_VERSION \
+    && nvm use default
 
 VOLUME [/home/MCSManager]
 
